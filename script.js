@@ -285,12 +285,15 @@ function compareFactorKeys(x, y) {
             const xPart = xParts[i];
             const yPart = yParts[i];
 
-            if (!Number.isInteger(+xPart) || !Number.isInteger(+yPart)) {
-                return xPart < yPart ? -1 : 1;
-            }
-
             const xNum = +xPart;
             const yNum = +yPart;
+
+            if (!Number.isInteger(xNum) || !Number.isInteger(yNum)) {
+                if (xPart !== yPart) {
+                    return xPart < yPart ? -1 : 1;
+                }
+                continue;
+            }
 
             if (xNum !== yNum) {
                 return xNum - yNum;
