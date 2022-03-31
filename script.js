@@ -2,6 +2,7 @@
 
 const URI_ORDER_DATA = './orderData.json';
 
+const SELECTOR_LOADING = '[data-loading]'
 const SELECTOR_FACTORS = 'select[data-factors]';
 const SELECTOR_BTN_INSPECTION = 'button[data-get-inspection]';
 const SELECTOR_BTN_CONTRAINDICATIONS = 'button[data-get-contraindications]';
@@ -25,6 +26,8 @@ async function init() {
         return;
     }
     const orderData = await response.json();
+
+    document.querySelector(SELECTOR_LOADING).remove();
 
     const select = new FactorsSelect(SELECTOR_FACTORS, orderData);
     select.init();
@@ -152,7 +155,7 @@ function FactorsSelect(selector, orderData) {
 function FactorsAlert(targetSelector, alertFactorsSelector, btnsSelector, displayNoneClassname, factorsSelect) {
     const _target = document.querySelector(targetSelector);
     const _factorsList = document.querySelector(alertFactorsSelector);
-    const _buttons = document.querySelectorAll(btnsSelector);    
+    const _buttons = document.querySelectorAll(btnsSelector);
 
     const _getAlertData = selection => {
         let letters = [];
